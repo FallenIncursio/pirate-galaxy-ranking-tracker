@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import sys
+
 import pytest
 
 from pg_rankings.single_instance import (
@@ -75,6 +77,7 @@ def test_tracker_instance_reports_mutex_creation_failure() -> None:
         raise AssertionError("failed mutex creation must not enter the context")
 
 
+@pytest.mark.skipif(sys.platform == "win32", reason="POSIX file locks are unavailable")
 def test_tracker_instance_rejects_a_second_posix_lock(tmp_path) -> None:
     lock_path = tmp_path / "tracker.lock"
 
