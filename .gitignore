@@ -1,0 +1,40 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Local configuration and credentials
+config.toml
+secrets.env
+.env
+.env.*
+!*.example.env
+
+# Runtime state and diagnostics
+data/
+logs/
+diagnostics/
+support-*.zip
+*.sqlite3
+*.sqlite3-*
+*.db
+*.log
+
+# Locally captured game UI templates. See assets/recovery/README.md.
+assets/recovery/*.png
+
+# Retired local Linux/Proton prototype; the supported runtime is Windows.
+linux/
+
+# Builds and editor/OS metadata
+dist/
+build/
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini

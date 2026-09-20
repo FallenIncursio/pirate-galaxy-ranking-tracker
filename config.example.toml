@@ -1,0 +1,83 @@
+[tracker]
+server = "Example Server"
+division = 1
+top_n = 7
+capture_top_n = 11
+reward_slots = 4
+poll_seconds = 300
+consensus_delay_seconds = 2.0
+stale_after_failures = 3
+window_title_contains = "PirateGalaxy Version:"
+
+[recovery]
+# Start with shadow_mode=true: failures are classified and logged without
+# closing, starting, or clicking the game. Switch it off only after the
+# recovery probe and recorded-screen tests succeed on the dedicated PC.
+enabled = false
+shadow_mode = true
+refresh_failure_threshold = 3
+max_restarts_per_hour = 3
+launch_timeout_seconds = 600
+probe_interval_seconds = 5.0
+graceful_close_seconds = 15
+action_cooldown_seconds = 10.0
+watchdog_stale_seconds = 720
+client_task_name = "Pirate Galaxy Client"
+template_threshold = 0.88
+# First maintenance detection waits 15 minutes. Each confirmed maintenance
+# restart probe increases the interval to 30 and then at most 60 minutes.
+maintenance_backoff_seconds = [900, 1800, 3600]
+
+[ocr]
+language = "eng"
+minimum_confidence = 45.0
+anchor_minimum_confidence = 35.0
+# Example profile for an 800x600 client. Verify it with calibrate before use.
+anchor = [0.090, 0.228, 0.200, 0.043]
+name_x = 0.225
+name_width = 0.550
+score_x = 0.795
+score_width = 0.085
+first_row_y = 0.280
+row_height = 0.050
+row_content_height = 0.050
+
+# Exact corrections for stable, independently verified OCR misreads. Keep
+# production/player-specific aliases only in the ignored config.toml.
+[ocr.name_aliases]
+"ExampleRead" = "ExamplePilot"
+
+[refresh]
+# Example points for an 800x600 client. Recalibrate after layout changes.
+# The first point clicks the Wertungen toolbar icon; the second re-selects
+# Ranglistenwertungen to replace the game's cached table. OCR still verifies
+# Division 1 before publishing.
+expected_width = 800
+expected_height = 600
+menu_icon_x = 0.450
+menu_icon_y = 0.023
+rankings_tab_x = 0.295
+rankings_tab_y = 0.108
+menu_wait_seconds = 3.0
+content_wait_seconds = 8.0
+
+[paths]
+state = "data/state.json"
+history = "data/history.sqlite3"
+diagnostics = "data/diagnostics"
+log = "logs/tracker.log"
+runtime = "data/runtime.json"
+recovery_state = "data/recovery-state.json"
+
+[discord]
+username = "Ranking Tracker"
+
+[[discord.targets]]
+id = "primary"
+webhook_environment = "DISCORD_WEBHOOK_URL"
+
+# Add another private channel by defining another target and storing its URL
+# with `windows\set-webhook.ps1 -Target clan -Restart`.
+# [[discord.targets]]
+# id = "clan"
+# webhook_environment = "DISCORD_WEBHOOK_CLAN"

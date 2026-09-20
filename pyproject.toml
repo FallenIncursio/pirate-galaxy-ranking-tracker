@@ -1,0 +1,62 @@
+[build-system]
+requires = ["setuptools>=75", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pirate-galaxy-rankings"
+version = "0.1.0"
+description = "Screenshot-only Pirate Galaxy Division 1 tracker for Discord"
+readme = "README.md"
+license = "MIT"
+authors = [
+  { name = "FallenIncursio" },
+]
+requires-python = ">=3.11"
+keywords = ["discord", "ocr", "pirate-galaxy", "rankings", "tesseract"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Operating System :: Microsoft :: Windows :: Windows 10",
+  "Operating System :: Microsoft :: Windows :: Windows 11",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "Topic :: Communications :: Chat",
+]
+dependencies = [
+  "certifi>=2025.8.3,<2027",
+  "numpy>=2.0,<3",
+  "opencv-python-headless>=4.10,<5",
+  "Pillow>=11.2.1,<13",
+  "pytesseract>=0.3.13,<0.4",
+  "tzdata>=2025.2,<2027",
+]
+
+[project.optional-dependencies]
+linux = [
+  "python-xlib>=0.33,<0.34",
+]
+test = [
+  "pytest>=8.3,<10",
+  "pytest-cov>=6,<8",
+  "ruff>=0.12,<0.15",
+]
+
+[project.scripts]
+pg-rankings = "pg_rankings.cli:main"
+
+[project.urls]
+Repository = "https://github.com/FallenIncursio/pirate-galaxy-ranking-tracker"
+Issues = "https://github.com/FallenIncursio/pirate-galaxy-ranking-tracker/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
